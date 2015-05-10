@@ -1,0 +1,8 @@
+{
+    "expr": true,
+    "node": true,
+    "globals": {
+     "$": false,
+     "jQuery": false
+    }
+}
