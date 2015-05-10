@@ -34,7 +34,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: ['dist/SlimModals.js'],
+      files: ['dist/SlimModal.js'],
       options: {
         globals: {
           console: true,
