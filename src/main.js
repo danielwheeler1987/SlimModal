@@ -1,3 +1,9 @@
+/*
+ * TODO: refactor the below and utilize jQuery transit
+ * Currently just using jQuery animation
+ * jQuery transit will allow us to utlize CSS3 animations with nice JS fallbacks
+ */
+
 var SlimModal = function($element, options) {
   this.$element = $element;
   this.options = $.extend(this.constructor.DEFAULTS, options);
@@ -7,6 +13,14 @@ var SlimModal = function($element, options) {
 
 SlimModal.VERSION = '1.0.0';
 
+/*
+ * Modal defaults can be overridden using the data attributes shown below:
+ * ex. data-overlay="false"
+ * ex. data-keyboard="false"
+ * ex. data-modal="false"
+ * ex. data-load="true"
+ * ex. data-ajax="true"
+ */
 SlimModal.DEFAULTS = {
   overlay: true,
   keyboard: true,
@@ -15,6 +29,13 @@ SlimModal.DEFAULTS = {
   ajax: false
 };
 
+/*
+ * Please use events to attach AJAX calls, hide or display content, etc.
+ * ex. $(document).on('slimModal.before.show', '[data-modal="MODAL-TARGET-NAME"]', function() {});
+ * ex. $(document).on('slimModal.after.show', '[data-modal="MODAL-TARGET-NAME"]', function() {});
+ * ex. $(document).on('slimModal.before.hide', '[data-modal="MODAL-TARGET-NAME"]', function() {});
+ * ex. $(document).on('slimModal.after.hide', '[data-modal="MODAL-TARGET-NAME"]', function() {});
+ */
 SlimModal.EVENTS = {
   BEFORE_SHOW: 'slimModal.before.show',
   AFTER_SHOW: 'slimModal.after.show',
@@ -22,8 +43,10 @@ SlimModal.EVENTS = {
   AFTER_HIDE: 'slimModal.after.hide'
 };
 
+// Escape key number
 SlimModal.ESCAPE_KEY = 27;
 
+// Animation speed
 SlimModal.ANIMATION_SPEED = 250;
 
 SlimModal.prototype.toggle = function() {
@@ -40,6 +63,10 @@ SlimModal.prototype.show = function() {
   this.showAnimation();
 };
 
+/*
+ * TODO: Need to replace the return false and pass in the event object and then preven the default action
+ * This event needs to be passed in from the toggle method
+ */
 SlimModal.prototype.hide = function(e) {
   this.isLocked = false;
   this.hideAnimation();
@@ -129,6 +156,7 @@ function slimModalPlugin(option) {
 }
 $.fn.slimModal = slimModalPlugin;
 
+// This will open the modal when a target element is triggered (on demand initialization)
 $(document).on('click.show.slimModal', '[data-js="slimModal-trigger"]', function(e) {
   var $this = $(this);
   $this.is('a') && e.preventDefault();
@@ -139,6 +167,7 @@ $(document).on('click.show.slimModal', '[data-js="slimModal-trigger"]', function
   data.toggle();
 });
 
+// Loads all modals on page load that are needed
 $('[data-js="slimModal-target"][data-load="true"]').each(function() {
   var $element = $(this);
   var options = $.extend(SlimModal.DEFAULTS, $element.data());
