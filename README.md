@@ -14,7 +14,7 @@ Using Bower:
 
     bower install SlimModals
 
-Or grab the [source](https://github.com/danielwheeler1987/SlimModals/dist/SlimModal.js) ([minified](https://github.com/danielwheeler1987/SlimModals/dist/SlimModals.min.js)).
+Or grab the [source](https://github.com/danielwheeler1987/SlimModals/dist/SlimModal.js) ([minified](https://github.com/danielwheeler1987/SlimModals/dist/SlimModal.min.js)).
 
 ## Usage
 
