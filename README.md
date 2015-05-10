@@ -1,4 +1,4 @@
-# SlimModals
+# SlimModal
 
 Simple responsive modals
 
@@ -6,7 +6,7 @@ Simple responsive modals
 
 A JavaScript library by Daniel Wheeler.
 
-See the [project homepage](http://danielwheeler1987.github.io/SlimModals).
+See the [project homepage](http://danielwheeler1987.github.io/SlimModal).
 
 ## Installation
 
@@ -14,13 +14,10 @@ Using Bower:
 
     bower install SlimModals
 
-Or grab the [source](https://github.com/danielwheeler1987/SlimModals/dist/SlimModals.js) ([minified](https://github.com/danielwheeler1987/SlimModals/dist/SlimModals.min.js)).
+Or grab the [source](https://github.com/danielwheeler1987/SlimModals/dist/SlimModal.js) ([minified](https://github.com/danielwheeler1987/SlimModals/dist/SlimModals.min.js)).
 
 ## Usage
 
-Basic usage is as follows:
-
-    SlimModals();
 
 For advanced usage, see the documentation.
 
