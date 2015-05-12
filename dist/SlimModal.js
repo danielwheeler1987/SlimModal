@@ -127,8 +127,9 @@ SlimModal.prototype.addCloseButton = function() {
 
 SlimModal.prototype.keyboardBindings = function() {
   if (this.isLocked && this.options.keyboard) {
-    this.$element.one('keyup.close.slimModal', $.proxy(function(e) {
-      e.which == SlimModal.ESCAPE_KEY && $.proxy(this.hide(), this);
+    $(document).one('keyup', $.proxy(function(e) {
+      e.which === SlimModal.ESCAPE_KEY && this.hide();
+      e.which === SlimModal.ESCAPE_KEY && console.log('Hello World');
     }, this));
   }
 };
