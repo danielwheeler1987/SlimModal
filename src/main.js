@@ -9,6 +9,7 @@ var SlimModal = function($element, options) {
   this.options = $.extend(this.constructor.DEFAULTS, options);
   this.$maskLayer = null;
   this.isLocked = null;
+  this.checkTransformSupport();
 };
 
 SlimModal.VERSION = '1.0.0';
@@ -19,18 +20,16 @@ SlimModal.VERSION = '1.0.0';
  * ex. data-keyboard="false"
  * ex. data-modal="false"
  * ex. data-load="true"
- * ex. data-ajax="true"
  */
 SlimModal.DEFAULTS = {
   overlay: true,
   keyboard: true,
   modal: true,
-  load: false,
-  ajax: false
+  load: false
 };
 
 /*
- * Please use events to attach AJAX calls, hide or display content, etc.
+ * Please use events to attach  calls, hide or display content, etc.
  * ex. $(document).on('slimModal.before.show', '[data-modal="MODAL-TARGET-NAME"]', function() {});
  * ex. $(document).on('slimModal.after.show', '[data-modal="MODAL-TARGET-NAME"]', function() {});
  * ex. $(document).on('slimModal.before.hide', '[data-modal="MODAL-TARGET-NAME"]', function() {});
@@ -48,6 +47,14 @@ SlimModal.ESCAPE_KEY = 27;
 
 // Animation speed
 SlimModal.ANIMATION_SPEED = 250;
+
+SlimModal.prototype.checkTransformSupport = function() {
+  // Delegate .transition() calls to .animate()
+  // if the browser can't do CSS transitions.
+  if (!$.support.transition) {
+    $.fn.transition = $.fn.animate;
+  }
+};
 
 SlimModal.prototype.toggle = function() {
   this.isLocked ? this.hide() : this.show();
@@ -76,18 +83,18 @@ SlimModal.prototype.hide = function(e) {
 SlimModal.prototype.showAnimation = function() {
   this.$element.trigger(this.constructor.EVENTS.BEFORE_SHOW);
   this.$element.css('top', this.resetTop() + 'px');
-  this.$maskLayer.show().stop().animate({opacity: 1}, this.constructor.ANIMATION_SPEED, $.proxy(function() {
+  this.$maskLayer.show().stop().transition({opacity: 1}, this.constructor.ANIMATION_SPEED, $.proxy(function() {
     this.$element.show().stop()
-                 .animate({top: this.offsetTop() + 'px', opacity: 1}, this.constructor.ANIMATION_SPEED)
+                 .transition({top: this.offsetTop() + 'px', opacity: 1}, this.constructor.ANIMATION_SPEED)
                  .trigger(this.constructor.EVENTS.AFTER_SHOW);
   }, this));
 };
 
 SlimModal.prototype.hideAnimation = function() {
   this.$element.trigger(this.constructor.EVENTS.BEFORE_HIDE);
-  this.$element.stop().animate({top: this.resetTop() + 'px', opacity: 0},
+  this.$element.stop().transition({top: this.resetTop() + 'px', opacity: 0},
     this.constructor.ANIMATION_SPEED, $.proxy(function() {
-      this.$maskLayer.stop().animate({opacity: 0}, this.constructor.ANIMATION_SPEED, $.proxy(function() {
+      this.$maskLayer.stop().transition({opacity: 0}, this.constructor.ANIMATION_SPEED, $.proxy(function() {
         this.$maskLayer.hide().remove();
         this.$element.trigger(this.constructor.EVENTS.AFTER_HIDE).hide();
       }, this));
